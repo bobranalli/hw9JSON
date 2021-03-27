@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="artist.json"></script>
+		
+		<style>
+			table, th, td 
+			{
+				border: solid 1px #DDD;
+				border-collapse: collapse;
+				padding: 2px 3px;
+				text-align: center;
+			}
+			th {
+				font-weight:bold;
+			}
+		</style>
+
+	</head>
+	<body>
+		<script language = "javascript">
+			var str = [];
+			$.getJSON('https://bobranalli.github.io/jsonhost/artist.JSON',
+				function( data) {
+					str = JSON.stringify(data);
+					strHTML = "<ul>";
+					var jazzList = "<ul>" + "The Genre You've Picked: <strong>Jazz</strong>" + "<br>" + "<br>";
+					var mellowList = "<ul>"+ "The Genre You've Picked: <strong>Mellow</strong>" + "<br>" + "<br>";
+					var rbList = "<ul>"+ "The Genre You've Picked: <strong>R&B</strong>" + "<br>" + "<br>";
+					var alternativeList = "<ul>"+ "The Genre You've Picked: <strong>Alternative</strong>" + "<br>" + "<br>";
+					
+					data.forEach(function(artist) {
+						strHTML +="<li>"+ artist.name + "<br>";
+						strHTML +="<li>"+ "Album: " + artist.albums[0].title + "<br>";
+						strHTML +="<li>"+ "Song: " + artist.albums[0].songs[0].title + "<br>";
+						strHTML +="<li>"+ "Genre: " + artist.albums[0].songs[0].genre + "<br>";
+						strHTML +="<li>"+ "Released: " + artist.albums[0].released + "<br>";
+						strHTML += "<br>";
+						
+						strHTML +="<li>"+ artist.name + "<br>";
+						strHTML +="<li>"+ "Album: " + artist.albums[0].title + "<br>";
+						strHTML +="<li>"+ "Song: " + artist.albums[0].songs[1].title + "<br>";
+						strHTML +="<li>"+ "Genre: " + artist.albums[0].songs[1].genre + "<br>";
+						strHTML +="<li>"+ "Released: " + artist.albums[0].released + "<br>";
+						strHTML += "<br>";
+						
+						strHTML +="<li>"+ artist.name + "<br>";
+						strHTML +="<li>"+ "Album: " + artist.albums[0].title + "<br>";
+						strHTML +="<li>"+ "Song: " + artist.albums[0].songs[2].title + "<br>";
+						strHTML +="<li>"+ "Genre: " + artist.albums[0].songs[2].genre + "<br>";
+						strHTML +="<li>"+ "Released: " + artist.albums[0].released + "<br>";
+						strHTML += "<br>";
+						
+						strHTML +="<li>"+ artist.name + "<br>";
+						strHTML +="<li>"+ "Album: " + artist.albums[0].title + "<br>";
+						strHTML +="<li>"+ "Song: " + artist.albums[0].songs[3].title + "<br>";
+						strHTML +="<li>"+ "Genre: " + artist.albums[0].songs[3].genre + "<br>";
+						strHTML +="<li>"+ "Released: " + artist.albums[0].released + "<br>";
+						strHTML += "<br>";
+						
+						for (var i = 0; i < 4; i++){
+							if (artist.albums[0].songs[i].genre == "jazz") {
+								
+								
+								jazzList += "<li>" + artist.albums[0].songs[i].title;
+								jazzList += "<br>" + "Performed By: " + artist.name;
+							}
+						}
+						
+						for (var i = 0; i < 4; i++){
+							if (artist.albums[0].songs[i].genre == "mellow") {
+								
+								mellowList += "<li>" + artist.albums[0].songs[i].title;
+								mellowList += "<br>" + "Performed By: " + artist.name;
+
+							}
+						}
+						
+						for (var i = 0; i < 4; i++){
+							if (artist.albums[0].songs[i].genre == "r&b") {
+							
+								rbList += "<li>" + artist.albums[0].songs[i].title;
+								rbList += "<br>" + "Performed By: " + artist.name + "<br>";
+								
+							}
+						}
+						
+						for (var i = 0; i < 4; i++){
+							if (artist.albums[0].songs[i].genre == "alternative") {
+								
+								alternativeList += "<li>" + artist.albums[0].songs[i].title;
+								alternativeList += "<br>" + "Performed By: " + artist.name;
+							}
+						}
+				
+					})
+					strHTML += "</ul>";
+					
+					document.getElementById('displayRaw').innerHTML += str;
+					document.getElementById('displayFormat').innerHTML += strHTML;
+					
+					document.getElementById('showMellow').innerHTML += mellowList + '<br>';
+					document.getElementById('showJazz').innerHTML += jazzList + '<br>';
+					document.getElementById('showR&B').innerHTML += rbList + '<br>';
+					document.getElementById('showAlternative').innerHTML += alternativeList + '<br>';
+					
+				})
+			
+			//Part 4
+			function checkGenre(selectedObj) {
+				var val = document.getElementById("formData");
+				var gen = val.value;
+				
+				if (gen == "mellow"){
+					document.getElementById("showMellow").style.display = "block";
+				} else {
+					document.getElementById("showMellow").style.display = "none";
+				}
+				
+				if (gen == "r&b"){
+					document.getElementById("showR&B").style.display = "block";
+					
+				}else {
+					document.getElementById("showR&B").style.display = "none";
+				}
+				
+				if (gen == "alternative"){
+					document.getElementById("showAlternative").style.display = "block";
+					
+				}else {
+					document.getElementById("showAlternative").style.display = "none";
+				}
+				
+				if (gen == "jazz"){
+					document.getElementById("showJazz").style.display = "block";
+					
+				}else {
+					document.getElementById("showJazz").style.display = "none";
+				}
+			}
+		
+		</script>
+		
+			<div id = "displayRaw">	
+				<h1>Raw JSON String</h1>
+				<h3>(I think this is what is being asked for at least...)</h3>
+			</div>
+				
+			<div id  = "displayFormat">
+				<h1>Formatted JSON</h1>
+				<h3>(each block is a different song)</h3>
+			</div>
+		
+			<div id  = "displayTest">
+				
+			</div>
+
+			<form onsubmit="return false">
+				<label><h1>Filter By Genre!</h1></label><br>
+				<select id = "formData">
+					<option value = "r&b">R&B</option>
+					<option value = "mellow">Mellow</option>
+					<option value = "alternative">Alternative</option>
+					<option value = "jazz">Jazz</option>
+				</select><br>
+				<input type="submit" value="Submit" onclick = "checkGenre(this)">
+			</form>	
+	
+			<div id="showMellow" style="display:none"></div>
+
+			<div id="showR&B" style="display:none"></div>
+		
+			<div id="showAlternative" style="display:none"></div>
+
+			<div id="showJazz" style="display:none"></div>
+
+		
+	</body>
+</html>
